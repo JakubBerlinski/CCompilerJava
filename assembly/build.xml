@@ -1,0 +1,26 @@
+<project>
+	<property name="main-class" value="AssemblyDriver"/>
+	<property name="package" value="Assembly"/>
+	
+	<target name="clean">
+		<delete dir="build"/>
+		<delete dir="bin"/>
+	</target>
+	
+	<target name="build">
+		<mkdir dir="build/classes"/>
+		<javac srcdir="src" destdir="build/classes" debug="true" includeantruntime="false"/>
+		
+		<mkdir dir="bin"/>
+		<jar destfile="bin/${package}.jar" basedir="build/classes">
+			<manifest>
+				<attribute name="Main-Class" value="${package}.${main-class}"/>
+			</manifest>
+		</jar>
+	</target>
+	
+	<target name="run" depends="build">
+		<java jar="bin/${package}.jar" fork="true"/>
+	</target>
+	
+</project>
